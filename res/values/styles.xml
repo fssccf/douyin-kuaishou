@@ -1,0 +1,41 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!-- Application theme. -->
+<!--     <style name="AppTheme"> -->
+<!--         All customizations that are NOT specific to a particular API-level can go here. -->
+<!--     </style> -->
+    
+    <!-- progress dialog style -->
+    <style name="progressdialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground"> @android:color/transparent </item>
+        <item name="android:windowFrame">@null</item>         
+    </style>
+    <!-- 分割线 -->
+	<style name="split_line">
+	    <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">1px</item>
+	    <item name="android:background">@color/split_line_color01</item>
+	</style>
+	<style name="split_line_vertical">
+	    <item name="android:layout_width">1px</item>
+	    <item name="android:layout_height">match_parent</item>
+	    <item name="android:background">@color/split_line_color01</item>
+	</style>
+	
+	<!-- 为 Theme 设置透明属性 -->
+    <style name="AppStartTheme" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+</resources>

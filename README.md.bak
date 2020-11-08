@@ -1,0 +1,114 @@
+#Core
+Android Core框架使用手册
+
+1.背景
+
+Android在Android 3.0 (API level 11)开始引入Fragment，Fragment的出现后TabHost就会消失了。我们在开发Android应用的时候大多数界面现在使用Fragment，以达到解耦和高复用的目的。
+Core框架旨在帮助Android开发者快速创建应用，以及方便的切换页面；现在主流的app界面架构都是导航栏和主界面；Core框架把这些操作都进行了封装，用户只需简单几个配置，就可以把FragmentManager复杂的操作操作以及，白屏随机性bug降到最低。
+另外Core对数据库的操作使用了OrmLite框架，并进行了封装，让开发者对数据库的操作更简单；在Android View注解绑定上Core框架中使用了Roboguice注解绑定；以及网络访问中，Core采用了Android官方推荐的Volley jar包，并进行了封装，方便的网络访问。
+
+2.Jar包导入
+
+在自己的项目中导入Core.jar包，并且添加到Build Path中；或者把Core的源码作为Liberty资源引入到项目中，方便二次开发；
+如果导入jar包后项目出错了，请替换原项目中android-support-v4.jar为core项目中的android-support-v4.jar。
+
+3.初始化应用
+
+创建TestConfig类继承Core框架中的CoreConfig类，这里默认了数据库名，以及应用文件夹根目录等配置参数；
+在自己应用的欢迎界面SplashActivity中初始化TestConfig对象。就可以使用该框架创建主界面了。
+TestConfig中自己必须创建主界面，必须有主界面，且AppMenus和AppPages的size必须相同。
+AndroidManifest.xml中的Application的name要么自己写一个类继承com.lianjiao.core.app.CoreApplication或者直接使用com.lianjiao.core.app.CoreApplication
+
+4.界面配置
+
+4.1.创建应用主界面
+
+所有Fragment都需要继承Core框架中的BaseFragment对象
+//创建界面demo
+List<AppMenu> menus = new ArrayList<>();
+List<AppPage> pages = new ArrayList<>();
+//菜单
+menus.add(new AppMenu("页面1",R.drawable.ic_tab_home_normal,R.drawable.ic_tab_home_selected));
+menus.add(new AppMenu("页面2",R.drawable.ic_tab_record_normal,R.drawable.ic_tab_record_selected));
+menus.add(new AppMenu("页面3",R.drawable.ic_tab_user_normal,R.drawable.ic_tab_user_selected));
+//界面
+pages.add(new AppPage(new TestFrag1()));
+pages.add(new AppPage(new TestFrag2()));
+pages.add(new AppPage(new TestFrag3()));
+//全部创建界面
+AppFrame.getAppFrame().createAppFrame(menus, pages);
+
+4.2.设置菜单显示属性
+
+4.2.1.菜单底部分割线
+
+//底部菜单分割线是否显示
+AppFrame.getAppFrame().isShowSplitLine = true;
+
+4.2.2.菜单位置
+
+//设置菜单位置
+CoreConfig.menuPos = MenusPosition.BOTTOM;
+
+4.2.3.菜单显示
+
+//设置菜单不显示文字
+CoreConfig.menusWithoutText = true;
+设置菜单不显示文字或者图片或者，都不显示可以使用CoreConfig中的menuWithoutText、menuWithoutImg、menuWithoutAll等属性。
+
+4.2.4.菜单布局LayoutParams设置
+
+菜单布局LayoutParams设置可以调用
+AppFrame.getAppFrame().footLayoutParams=(LinearLayout.LayoutParams)params;
+参数设置，或者调用 
+AppFrame.getAppFrame().leftLayoutParams=(DrawerLayout.LayoutParams) = params;
+进行布局参数设置；
+注意：如果CoreConfig.menuPos设置为MenusPosition.LEFT或MenusPosition.RIGHT;
+
+
+
+5.数据库ORM使用
+
+5.1.建里数据库表
+Core框架集成了OrmLite类库，使用方法详细参考OrmLite类库，详见：http://ormlite.com/javadoc/ormlite-android/
+例：建表
+//创建数据库，并且建立表
+DatabaseHelper.getHelper(context).createTable(User.class);
+
+5.2.Core框架中BaseManager的使用
+
+使用userManager的add方法即可将数据添加到数据中。
+也可以继承BaseManager自己根据自己的业务逻辑丰富manager中的方法。BaseManager中的方法
+
+6.网络请求使用
+
+使用HttpUtil中的方法进行网络访问，BaseListener回调函数用来处理网络访问返回值。
+HttpUtil.getMethod和HttpUtil.PostMethod方法可以进行post和get网络请求；HttpUtil.put方法可以进行put访问。一般我们使用HttpUtil.post或者HttpUtil.get，HttpUtil.post或HttpUtil.get方法中添加了debug网络开关，debug可以禁止网络访问，以及添加了是否连网络连接成功的全局拦截。
+HttpUtil.post和HttpUtil.get方法的传参使用方式一样，所以可以进行无缝替换，把get统一换成post请求；
+
+7.Core中的第三方库
+
+8.源码解析
+8.1.主界面框架结构
+
+应用的主界面以及其他Fragment的显示都是基于MainActivity的，在应用中MainActivity是SingleTask模式。
+
+8.2.MainActivity源码解析
+
+MainActivity View中只有一个FragmentLayout；
+MainActivity的属性详解：
+FragMain  fragMain：应用程序主界面的Fragment父类，用户的tab主界面都在这个对象中，它是MainActivity的属性，所以会在应用启动后一直在内存中。
+BaseFragment  currentFragment：MainActivity当前的Fragment也是用户在应用中当前看到的界面对象。如果是FragmentMain对象，则用户还需要再次调用FragMain.getCurrentFragment()方法再次获取。
+Stack<BaseFragment>  stackFrag：回退栈管理，这里在fragmentManager中，目前我使用的是hide隐藏和show显示，这里当用户在自己的fragment中调用showFrag()方法的时候，MainActivity中的fragmentManager会隐藏当前Fragment，然后调用add方法，把新的Fragment添加到fragment栈中。当用户调用back2LastFrag方法返回上一个界面的时候，会移除remove掉当前的Fragment，然后调用show方法显示前一个Fragment。
+back2LastFrag方法在BaseFragment中的onBack中调用了，用户可以重写当前Fragment的onBack来禁止back2LastFrag方法的调用。
+
+8.3.FragMain源码解析
+
+FragMain是一个单例模式，FragMain中的方法用户可以直接调用，也可以通过AppFrame中对FragMain方法的封装去调用。
+FragMain的会根据CoreConfig中的MenusPosition去调用不同的layout.xml布局文件
+
+fragMain中根据用户的在构造接口框架时传入的AppPages，初始化app主界面，切换页面同时是
+
+8.4.DatabaseHelper和BaseManager<T>
+
+对表的基本操作都已经包含在内了，在项目开中也可以集成BaseManager根据自己的业务丰富manager的功能。

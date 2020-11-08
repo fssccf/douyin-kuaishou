@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_panel"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_title_height"
+    android:paddingLeft="@dimen/app_title_padding"
+    android:paddingRight="@dimen/app_title_padding"
+    android:background="@drawable/bg_normal_linelayout"
+    android:orientation="horizontal" >
+
+	     <com.lianjiao.core.widget.LsTextView
+	        android:id="@+id/app_left"
+	        android:layout_width="wrap_content"
+	        android:minWidth="60dp"
+	        android:tag="appTitleLeft"
+	        android:layout_height="match_parent"
+	        android:layout_alignParentLeft="true"
+	        android:text="左边文字"
+	        android:gravity="center"
+	        android:drawableLeft="@android:drawable/ic_menu_add"
+	        android:drawablePadding="5dp"
+	        android:textColor="@color/text_color000"
+	        android:textSize="@dimen/text_size16"  
+	        android:clickable="true"
+	        android:onClick="onClick"/>
+
+	    <com.lianjiao.core.widget.LsTextView
+	        android:id="@+id/app_title"
+	        android:tag="appTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:gravity="center"
+	        android:text="标题"
+	        android:textColor="@color/text_color000"
+	        android:textSize="@dimen/text_size20" />
+
+	   <com.lianjiao.core.widget.LsTextView
+	        android:id="@+id/app_right"
+	        android:tag="appTitleRight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:gravity="right|center_vertical"
+	        android:text="右边文字"
+	        android:drawableRight="@android:drawable/ic_menu_add"
+	        android:drawablePadding="5dp"
+	        android:textColor="@color/text_color000"
+	        android:textSize="@dimen/text_size16" 
+	        android:clickable="true"
+	        android:onClick="onClick"/>
+	
+	</RelativeLayout>

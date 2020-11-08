@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="transparent">#00000000</color>
+    <color name="gray_whtie">#9cbffa</color>
+    
+    <color name="app_bg">#ffffff</color>
+    <color name="gray">#f4f4f4</color>
+    
+    <color name="white">#ffffff</color>
+    <color name="text_white">#ffffff</color>
+    <color name="edit_text_color">#000000</color>
+    <color name="edit_text_hint_color">#ebebeb</color>
+    
+    <color name="text_gray04">#cccccc</color>
+    <color name="text_gray01">#666666</color>
+    <color name="text_color000">#000000</color>
+    <color name="text_color333">#333333</color>
+    <color name="text_color666">#666666</color>
+    <color name="text_color999">#999999</color>
+    
+    <color name="gray_bg01">#2a2a2a</color>
+    <color name="gray_bg02">#535353</color>
+    <color name="gray_bg03">#f6f6f6</color>
+    <color name="gray_bg04">#e5e5e5</color>
+    <color name="gray_bg05">#f5f5f5</color>
+    <color name="gray_bg06">#fafafb</color>
+    
+    <color name="cursor_color">#000000</color>
+    
+    <color name="split_line_color">#cccccc</color>
+    <color name="split_line_color01">#ebebeb</color>
+    <color name="split_line_color02">#999999</color>
+    <color name="split_line_color03">#d0d0d0</color>
+    <color name="split_line_color04">#d5d5d5</color>
+    
+</resources>

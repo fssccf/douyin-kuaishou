@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_tab_user"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/bottom_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_launcher"
+        android:gravity="center"
+        android:background="@null" />
+    
+    <com.lianjiao.core.widget.LsTextView 
+        android:id="@+id/bottom_text"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="@dimen/text_size10"
+        android:textColor="@color/text_color666"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="菜单"/>
+    
+    <com.lianjiao.core.widget.LsTextView 
+        android:id="@+id/bottom_msg"
+        android:layout_toRightOf="@+id/bottom_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textSize="@dimen/text_size10"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_message_qq"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="1"/>
+    
+    
+</LinearLayout>
